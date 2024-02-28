@@ -20,14 +20,14 @@ function App() {
 
   useEffect(() => {
     // Fetch risk owners from the backend when the component mounts
-    axios.get('http://localhost:8070/riskowner')
+    axios.get('https://risk-owners-backend.onrender.com/riskowner')
       .then(response => setRiskowners(response.data))
       .catch(error => console.error('Error fetching risk owners:', error));
   }, [riskowners]);
 
   const addRiskOwner = async () => {
     try {
-      const response = await axios.post('http://localhost:8070/riskowner', { name, title, email, role });
+      const response = await axios.post('https://risk-owners-backend.onrender.com/riskowner', { name, title, email, role });
       setRiskowners([...riskowners, response.data]);
     } catch (error) {
       console.error('Error adding risk owner:', error);
@@ -40,7 +40,7 @@ function App() {
 
   const updateRiskOwner = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:8070/riskowner/${id}`, { name: updatedName, title: updatedTitle, email: updatedEmail, role: updatedRole });
+      const response = await axios.put(`https://risk-owners-backend.onrender.com/riskowner/${id}`, { name: updatedName, title: updatedTitle, email: updatedEmail, role: updatedRole });
       const updatedRiskOwners = riskowners.map(riskowner => (riskowner._id === id ? response.data : riskowner));
       setRiskowners(updatedRiskOwners);
       setEditRiskOwnerId(null);
@@ -68,7 +68,7 @@ function App() {
 
   const deleteRiskOwner = async (id) => {
     try {
-      await axios.delete(`http://localhost:8070/riskowner/${id}`);
+      await axios.delete(`https://risk-owners-backend.onrender.com/riskowner/${id}`);
       const updatedRiskOwner = riskowners.filter(riskowner => riskowner._id !== id);
       setRiskowners(updatedRiskOwner);
     } catch (error) {
